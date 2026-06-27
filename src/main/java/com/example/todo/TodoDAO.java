@@ -11,9 +11,17 @@ import java.util.List;
 
 
 public class TodoDAO {
-	public List<Todo> getAllTodos(){
+	public List<Todo> getAllTodos(String sort){
 		List<Todo>todos = new ArrayList<>();
-		String sql = "SELECT id, title, update_at, due_date FROM todo_items ORDER BY id ASC";
+		String sql = "SELECT id, title, update_at, due_date FROM todo_items";
+		
+		if ("asc".equals(sort)) {
+	        sql += " ORDER BY due_date ASC";
+	    } else if ("desc".equals(sort)) {
+	        sql += " ORDER BY due_date DESC";
+	    } else {
+	        sql += " ORDER BY id ASC";
+	    }
 		
 		try(Connection conn = MySQLConnection.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);

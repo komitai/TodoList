@@ -21,14 +21,18 @@ public class TodoServlet extends HttpServlet{
 	private TodoDAO todoDAO = new TodoDAO();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+		String sort = request.getParameter("sort");
+		
 		//Todoリストを取得
-		List<Todo> todoList = todoDAO.getAllTodos();
+		TodoDAO dao = new TodoDAO();
+		List<Todo> todoList = todoDAO.getAllTodos(sort);
 		
 		//デバッグ：取得できた件数を表示
 		System.out.println("デバッグ：取得したTodo件数 = " + (todoList != null ? todoList.size() : "null"));
 		
 		//リストをリクエストスコープに設定
 		request.setAttribute("todos", todoList);
+		request.setAttribute("sort", sort);
 		
 		//index.jspにフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");

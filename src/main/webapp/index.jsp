@@ -14,6 +14,18 @@
 
 <h1>Todoリスト</h1>
 
+<div>
+    <form action="todo" method="get" style="display:inline;">
+        <input type="hidden" name="sort" value="asc">
+        <button type="submit">期限 ↑（昇順）</button>
+    </form>
+
+    <form action="todo" method="get" style="display:inline;">
+        <input type="hidden" name="sort" value="desc">
+        <button type="submit">期限 ↓（降順）</button>
+    </form>
+</div>
+
 <%-- メッセージの表示処理 --%>
 <%
 	String errorMessage = (String) session.getAttribute("errorMessage");
